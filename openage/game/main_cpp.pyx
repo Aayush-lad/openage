@@ -8,7 +8,7 @@ from libopenage.main cimport main_arguments, run_game as run_game_cpp
 from libopenage.util.path cimport Path as Path_cpp
 from libopenage.pyinterface.pyobject cimport PyObj
 from libopenage.error.handlers cimport set_exit_ok
-
+from libopenage.renderer.window cimport WindowSettings
 
 def run_game(args, root_path):
     """
@@ -36,7 +36,15 @@ def run_game(args, root_path):
             args_cpp.mods = args.modpacks
         else:
             args_cpp.mods = vector[string]()
-
+        
+        # Parse window settings from CLI parameters
+        args_cpp.window_settings = WindowSettings(
+            width=args.width,
+            height=args.height,
+            vsync=args.vsync,
+            fullscreen=args.fullscreen,
+            borderless=args.borderless
+        )
         # run the game!
         with nogil:
             result = run_game_cpp(args_cpp)
