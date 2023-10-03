@@ -29,7 +29,26 @@ def init_subparser(cli: ArgumentParser) -> None:
     cli.add_argument(
         "--modpacks", nargs="+", required=True,
         help="list of modpacks to load")
+    
+    cli.add_argument(
+        "--width", type=int, default=800,
+        help="Window width")
+    
+    cli.add_argument(
+        "--height", type=int, default=600,
+        help="Window height")
 
+    cli.add_argument(
+        "--vsync", action='store_true',
+        help="Enable vsync")
+
+    cli.add_argument(
+        "--fullscreen", action='store_true',
+        help="Enable fullscreen mode")
+
+    cli.add_argument(
+        "--borderless", action='store_true',
+        help="Enable borderless window mode")
 
 def main(args, error):
     """
